@@ -3,6 +3,9 @@
 # Если случается ошибка то ливаем отсюда
 set -e
 
+# Путь к скрипту на запускающей системе (нужен для создания файла .env)
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
 # Дефолтные значения
 PREFIX="chavykin-06"
 ZONE="ru-central1-d"
@@ -64,4 +67,7 @@ yc vpc network delete --name "$NETWORK_NAME"
 
 echo "$NETWORK_NAME успешно удалена."
 
+rm -f "$SCRIPT_DIR/.env"
+
 echo "Убедиться в успешном удалении машин можно выполнив команды: yc compute instance list && yc vpc network list && yc compute disk list"
+echo "Рекомендуется удалить созданные переменные командой unset VM_IP1 VM_IP2"
