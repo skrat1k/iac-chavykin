@@ -102,7 +102,7 @@ yc compute instance create \
     --create-boot-disk image-folder-id=standard-images,image-family=ubuntu-2404-lts,type=network-hdd,size="$DISK_SIZE" \
     --network-interface subnet-name="$SUBNET_NAME",nat-ip-version=ipv4 \
     --ssh-key "$SSH_PUB_KEY" \
-    --labels created-by=cli >/dev/null
+    --labels created-by=cli &>/dev/null
 
 echo "Машина готова."
 VM_IP2="$(yc compute instance get "$VM_NAME2" --format json \
