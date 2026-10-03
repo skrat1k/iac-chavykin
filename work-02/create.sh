@@ -14,6 +14,57 @@ DISK_SIZE=25                 # дополнительный диск, ГБ — �
 BOOT_SIZE=15                 # загрузочный диск, ГБ — из варианта
 IMAGE_FAMILY=ubuntu-2404-lts # образ машин, одинаковый у всех вариантов
 
+
+# перенёс из лабы 1
+show_help() {
+    echo " --prefix Префикс для имени ВМ и подсети"
+    echo " --zone_a Зона A Yandex Cloude"
+    echo " --zone_b Зона B Yandex Cloude"
+    echo " --vm_count Количество машин"
+    echo " --disk_size Размер доп диска"
+    echo " --boot_size Размер загрузочного диска"
+    echo " --help Справка"
+}
+
+# Получение параметров
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --prefix)
+            PREFIX="$2"
+            shift 2
+            ;;
+        --zone_a)
+            ZONE_A="$2"
+            shift 2
+            ;;
+        --zone_b)
+            ZONE_B="$2"
+            shift 2
+            ;;
+        --vm_count)
+            VM_COUNT="$2"
+            shift 2
+            ;;
+        --disc_size)
+            DISK_SIZE="$2"
+            shift 2
+            ;;
+        --boot_size)
+            BOOT_SIZE="$2"
+            shift 2
+            ;;
+        --help)
+            show_help
+            exit 0
+            ;;
+        *)
+            echo "Неизвестный параметр $1"
+            echo "Используйте $0 --help чтобы узнать доступные параметры"
+            exit 1
+            ;;
+    esac
+done
+
 echo "==> сеть и подсети"
 yc vpc network create --name "$PREFIX-net"
 
